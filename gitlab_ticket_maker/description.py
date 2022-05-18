@@ -17,4 +17,4 @@ def get_description(skip_prompt: bool) -> str:
     footer = "*This issue has been created thanks " \
              "[Gitlab Ticket Maker](https://github.com/maximestevenot/gitlab-ticket-maker.git)*"
     body = get_description_from_prompt() if not skip_prompt else ""
-    return f"{body}\n{footer}"
+    return f"{body}\n\n{footer}"
