@@ -4,14 +4,19 @@ from gitlab import Gitlab
 from gitlab.v4.objects import Project
 
 from gitlab_ticket_maker.constant.gitlab import GITLAB_SERVER_URL, GITLAB_API_TOKEN, PRIORITY_PREFIX, SEVERITY_PREFIX, \
-    SCOPE_PREFIX, SQUAD_PREFIX, TITLE, DESCRIPTION, LABELS
+    SCOPE_PREFIX, SQUAD_PREFIX, TITLE, DESCRIPTION, LABELS, TicketType, TYPE_PREFIX
 
 
-def get_labels(priority: int, severity: int, scope: str, squad: str) -> list[str]:
-    return [PRIORITY_PREFIX + str(priority),
-            SEVERITY_PREFIX + str(severity),
-            SCOPE_PREFIX + scope,
-            SQUAD_PREFIX + squad]
+def get_labels(priority: int, severity: int, type: TicketType, scope: str, squad: str) -> list[str]:
+    labels = [PRIORITY_PREFIX + str(priority),
+              TYPE_PREFIX + type.name.lower(),
+              SCOPE_PREFIX + scope,
+              SQUAD_PREFIX + squad]
+
+    if type in [TicketType.BUG, TicketType.INCIDENT, TicketType.REQUEST, TicketType.SUPPORT]:
+        labels.append(SEVERITY_PREFIX + str(severity))
+
+    return labels
 
 
 class GitlabConfigException(Exception):

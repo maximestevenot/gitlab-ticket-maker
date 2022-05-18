@@ -19,6 +19,7 @@ Tickets information can have default configuration via environment variables.
 |----------------------|--------------------------|
 | TKT_DEFAULT_PRIORITY | 1                        |
 | TKT_DEFAULT_SEVERITY | 1                        |
+| TKT_DEFAULT_TYPE     | bug                      |
 | TKT_DEFAULT_SCOPE    | "saas-runtime"           |
 | TKT_DEFAULT_SQUAD    | "saas-runtime-taskforce" |
 | TKT_PROJECT_ID       | 73237                    |
