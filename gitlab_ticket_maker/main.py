@@ -4,8 +4,10 @@ import click
 import click_completion
 
 from gitlab_ticket_maker.constant.default_options import DEFAULT_PRIORITY, DEFAULT_SEVERITY, DEFAULT_SCOPE, \
-    DEFAULT_SQUAD, DEFAULT_PROJECT_ID, DEFAULT_SERVER_URL
+    DEFAULT_SQUAD, DEFAULT_PROJECT_ID
+from gitlab_ticket_maker.constant.gitlab import TITLE, DESCRIPTION, LABELS
 from gitlab_ticket_maker.description import get_description
+from gitlab_ticket_maker.ticket import create_issue, get_labels
 
 click_completion.init()
 
@@ -56,23 +58,22 @@ def cli():
               envvar=DEFAULT_PROJECT_ID,
               show_default=f"Content of ${DEFAULT_PROJECT_ID}",
               )
-@click.option('--server-url',
-              type=click.STRING,
-              envvar=DEFAULT_SERVER_URL,
-
-              show_default=f"Content of ${DEFAULT_SERVER_URL}",
-              )
 def new(title: str,
         skip_description: bool,
         priority: int,
         severity: int,
         scope: str,
         squad: str,
-        project_id: int,
-        server_url: str):
-    print(title, skip_description, priority, severity, scope, squad, project_id, server_url)
+        project_id: int):
     description = get_description(skip_description)
-    click.echo(f"Description:\n{description}")
+
+    issue_url = create_issue(project_id, {
+        TITLE: title,
+        DESCRIPTION: description,
+        LABELS: get_labels(priority, severity, scope, squad)
+    })
+
+    click.secho(f"Issue created at {issue_url}", fg='green')
 
 
 if __name__ == '__main__':

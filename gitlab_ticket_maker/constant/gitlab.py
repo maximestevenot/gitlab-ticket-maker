@@ -1,0 +1,12 @@
+GITLAB_SERVER_URL = "GITLAB_SERVER_URL"
+GITLAB_API_TOKEN = "GITLAB_API_TOKEN"
+
+TYPE_PREFIX = 'type::'
+SCOPE_PREFIX = 'scope::'
+PRIORITY_PREFIX = 'priority::P'
+SEVERITY_PREFIX = 'severity::S'
+SQUAD_PREFIX = 'squad:'
+
+TITLE = "title"
+DESCRIPTION = "description"
+LABELS = "labels"
